@@ -32,8 +32,9 @@ This is a haproxy example on vagrant.
 		vagrant@nodehome:~$ curl http://192.168.82.170:8080
 		vagrant@nodehome:~$ sudo tail -f /var/log/haproxy.log
 		
-		http://192.168.82.170:9000/haproxy_stats
-		admin / passwordhere
+	- Monitoring
+	  http://192.168.82.170:9000/haproxy_stats
+	  admin1 / password2
 	
 	- logging on node1, node2
 		vagrant ssh node1
@@ -52,6 +53,11 @@ This is a haproxy example on vagrant.
 		
 		sudo tail -f /var/log/nginx/access.log
 		
+	- Test service
+	  curl http://192.168.82.171:80
+	  curl http://192.168.82.172:80
+	  =>
+	  curl http://192.168.82.170:8080
 ```
 
 

@@ -27,7 +27,6 @@ cp /vagrant/etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg
 
 sed -i "s/NODE1/$cfg_ip_node1/g" /etc/haproxy/haproxy.cfg
 sed -i "s/NODE2/$cfg_ip_node2/g" /etc/haproxy/haproxy.cfg
-sed -i "s/ENABLED=0/ENABLED=1/g" /etc/default/haproxy
 
 /usr/sbin/haproxy -c -V -f /etc/haproxy/haproxy.cfg
 
@@ -42,21 +41,10 @@ sudo sh -c "echo 'iptables-restore < /etc/iptables/rules' >> /etc/network/if-up.
 iptables-restore < /etc/iptables/rules
 
 ##########################################
-# install ganglia
-##########################################
-sudo apt-get install ganglia-monitor -y
-
-sudo cp /vagrant/etc/ganglia/gmond.conf /etc/ganglia/gmond.conf
-sudo sed -i "s/MONITORNODE/$cfg_ganglia_server/g" /etc/ganglia/gmond.conf
-sudo sed -i "s/THISNODEID/$cfg_ip_nodehome/g" /etc/ganglia/gmond.conf
-sudo /etc/init.d/ganglia-monitor restart
-
-##########################################
 # syslog
 ##########################################
-sed -i 's/#$ModLoad imudp/$ModLoad imudp/g' /etc/rsyslog.conf
-sed -i 's/#$UDPServerAddress 127.0.0.1/$UDPServerAddress 127.0.0.1/g' /etc/rsyslog.conf
-sed -i 's/#$UDPServerRun 514/$UDPServerRun 514/g' /etc/rsyslog.conf
+sed -i 's/#module(load="imudp")/module(load="imudp")/g' /etc/rsyslog.conf
+sed -i 's/#input(type="imudp" port="514")/input(type="imudp" port="514")/g' /etc/rsyslog.conf
 
 cat  << 'EOF' > /etc/rsyslog.d/haproxy.conf
 if ($programname == 'haproxy') then -/var/log/haproxy.log

@@ -18,6 +18,7 @@ source $HOME_DIR/.bashrc
 ##########################################
 # install keepalived
 ##########################################
+sudo apt-get -y update
 sudo apt-get install keepalived -y
 
 echo 1 > /proc/sys/net/ipv4/ip_nonlocal_bind
@@ -27,37 +28,16 @@ sysctl -p
 cp /vagrant/etc/keepalived/keepalived.conf /etc/keepalived/
 sed -i "s/%PRIORITY%/$cfg_keepalivepriority1/g" /etc/keepalived/keepalived.conf
 sed -i "s/%PASSWORD%/$cfg_keepalivepassword/g" /etc/keepalived/keepalived.conf
-sed -i "s/%NODEHOME%/$cfg_nodehome/g" /etc/keepalived/keepalived.conf
+sed -i "s/%NODEHOME%/$cfg_keepalivevip/g" /etc/keepalived/keepalived.conf
 
 ### [install nginx] ######################
 sudo apt-get install nginx -y
 
 ##########################################
-# firewall rules
-##########################################
-mkdir -p /etc/iptables
-cp /vagrant/etc/iptables/rules /etc/iptables/rules
-
-sed -i "s/^iptables-restore//g" /etc/network/if-up.d/iptables
-sudo sh -c "echo 'iptables-restore < /etc/iptables/rules' >> /etc/network/if-up.d/iptables"
-iptables-restore < /etc/iptables/rules
-
-##########################################
-# install ganglia
-##########################################
-apt-get install ganglia-monitor -y
-
-sudo cp /vagrant/etc/ganglia/gmond.conf /etc/ganglia/gmond.conf
-sudo sed -i "s/MONITORNODE/$cfg_ganglia_server/g" /etc/ganglia/gmond.conf
-sudo sed -i "s/THISNODEID/$cfg_ip_node1/g" /etc/ganglia/gmond.conf
-sudo /etc/init.d/ganglia-monitor restart
-
-##########################################
 # syslog
 ##########################################
-sed -i 's/#$ModLoad imudp/$ModLoad imudp/g' /etc/rsyslog.conf
-sed -i 's/#$UDPServerAddress 127.0.0.1/$UDPServerAddress 127.0.0.1/g' /etc/rsyslog.conf
-sed -i 's/#$UDPServerRun 514/$UDPServerRun 514/g' /etc/rsyslog.conf
+sed -i 's/#module(load="imudp")/module(load="imudp")/g' /etc/rsyslog.conf
+sed -i 's/#input(type="imudp" port="514")/input(type="imudp" port="514")/g' /etc/rsyslog.conf
 
 cat  << 'EOF' > /etc/rsyslog.d/keepalived.conf
 if ($programname == 'keepalived') then -/var/log/keepalived.log
@@ -71,7 +51,17 @@ service keepalived stop
 service keepalived start
 
 sudo service nginx stop
-sudo nginx -s stop
-sudo nginx
+sudo service nginx start
 
 exit 0
+
+##########################################
+# firewall rules
+##########################################
+mkdir -p /etc/iptables
+cp /vagrant/etc/iptables/rules /etc/iptables/rules
+
+sed -i "s/^iptables-restore//g" /etc/network/if-up.d/iptables
+sudo sh -c "echo 'iptables-restore < /etc/iptables/rules' >> /etc/network/if-up.d/iptables"
+iptables-restore < /etc/iptables/rules
+
