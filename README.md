@@ -29,6 +29,7 @@ This is a haproxy example on vagrant.
 # Haproxy Test
 ```
 <<<<<<< Upstream, based on e54e45d869f74efb4839f6d63f4e982afcd1f49c
+<<<<<<< Upstream, based on e54e45d869f74efb4839f6d63f4e982afcd1f49c
 	- on nodehome1 or outside of VMs
 		vagrant ssh nodehome1
 		curl http://192.168.82.170:8080
@@ -41,6 +42,13 @@ This is a haproxy example on vagrant.
 		vagrant@nodehome:~$ sudo tail -f /var/log/haproxy.log
 		
 >>>>>>> 0872f57 upgrade ubuntu 16.04
+=======
+	- on nodehome1 or outside of VMs
+		vagrant ssh nodehome1
+		curl http://192.168.82.170:8080
+		sudo tail -f /var/log/haproxy.log
+
+>>>>>>> 7cae868 add keepalive on both nodehome1 and nodehome2
 	- Monitoring
 	  http://192.168.82.170:9000/haproxy_stats
 	  admin1 / password2
@@ -60,12 +68,19 @@ This is a haproxy example on vagrant.
 		
 	- Test service
 <<<<<<< Upstream, based on e54e45d869f74efb4839f6d63f4e982afcd1f49c
+<<<<<<< Upstream, based on e54e45d869f74efb4839f6d63f4e982afcd1f49c
 	  curl http://192.168.82.172:80
 	  curl http://192.168.82.173:80
 =======
 	  curl http://192.168.82.171:80
+=======
+>>>>>>> 7cae868 add keepalive on both nodehome1 and nodehome2
 	  curl http://192.168.82.172:80
+<<<<<<< Upstream, based on e54e45d869f74efb4839f6d63f4e982afcd1f49c
 >>>>>>> 0872f57 upgrade ubuntu 16.04
+=======
+	  curl http://192.168.82.173:80
+>>>>>>> 7cae868 add keepalive on both nodehome1 and nodehome2
 	  =>
 	  curl http://192.168.82.170:8080
 ```

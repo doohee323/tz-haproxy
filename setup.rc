@@ -1,6 +1,7 @@
 # DO NOT EDIT - AUTO GENERATED FROM setup.conf
 
 <<<<<<< Upstream, based on e54e45d869f74efb4839f6d63f4e982afcd1f49c
+<<<<<<< Upstream, based on e54e45d869f74efb4839f6d63f4e982afcd1f49c
 cfg_ip_nodehome1="192.168.82.170"
 cfg_ip_nodehome2="192.168.82.171"
 cfg_ip_node1="192.168.82.172"
@@ -13,7 +14,19 @@ cfg_keepalivepriority2="102"
 cfg_ip_nodehome="192.168.82.170"
 cfg_ip_node1="192.168.82.171"
 cfg_ip_node2="192.168.82.172"
+=======
+cfg_ip_nodehome1="192.168.82.170"
+cfg_ip_nodehome2="192.168.82.171"
+cfg_ip_node1="192.168.82.172"
+cfg_ip_node2="192.168.82.173"
+cfg_keepalivevip="192.168.82.174"
+>>>>>>> 7cae868 add keepalive on both nodehome1 and nodehome2
 cfg_keepalivepassword="password2"
+<<<<<<< Upstream, based on e54e45d869f74efb4839f6d63f4e982afcd1f49c
 cfg_keepalivepriority1="10"
 cfg_keepalivepriority2="20"
 >>>>>>> 0872f57 upgrade ubuntu 16.04
+=======
+cfg_keepalivepriority1="101"
+cfg_keepalivepriority2="102"
+>>>>>>> 7cae868 add keepalive on both nodehome1 and nodehome2
