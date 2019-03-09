@@ -30,6 +30,23 @@ sed -i "s/NODE2/$cfg_ip_node2/g" /etc/haproxy/haproxy.cfg
 
 /usr/sbin/haproxy -c -V -f /etc/haproxy/haproxy.cfg
 
+
+##########################################
+# install keepalived
+##########################################
+sudo apt-get install keepalived -y
+
+echo 1 > /proc/sys/net/ipv4/ip_nonlocal_bind
+echo "net.ipv4.ip_nonlocal_bind=1" >> /etc/sysctl.conf
+sysctl -p
+
+cp /vagrant/etc/keepalived/keepalived.conf /etc/keepalived/
+sed -i "s/%PRIORITY1%/$cfg_keepalivepriority1/g" /etc/keepalived/keepalived.conf
+sed -i "s/%PASSWORD%/$cfg_keepalivepassword/g" /etc/keepalived/keepalived.conf
+sed -i "s/%VIP%/$cfg_keepalivevip/g" /etc/keepalived/keepalived.conf
+
+sed -i "s/%MASTER%/MASTER/g" /etc/keepalived/keepalived.conf
+
 ##########################################
 # firewall rules
 ##########################################
@@ -56,5 +73,8 @@ EOF
 service rsyslog restart
 service haproxy stop
 service haproxy start
+
+service keepalived stop
+service keepalived start
 
 exit 0

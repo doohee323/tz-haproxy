@@ -1,8 +1,10 @@
 # DO NOT EDIT - AUTO GENERATED FROM setup.conf
 
-cfg_ip_nodehome="192.168.82.170"
-cfg_ip_node1="192.168.82.171"
-cfg_ip_node2="192.168.82.172"
+cfg_ip_nodehome1="192.168.82.170"
+cfg_ip_nodehome2="192.168.82.171"
+cfg_ip_node1="192.168.82.172"
+cfg_ip_node2="192.168.82.173"
+cfg_keepalivevip="192.168.82.174"
 cfg_keepalivepassword="password2"
-cfg_keepalivepriority1="10"
-cfg_keepalivepriority2="20"
+cfg_keepalivepriority1="101"
+cfg_keepalivepriority2="102"
